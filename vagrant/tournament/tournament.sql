@@ -1,19 +1,18 @@
 -- Table definitions for the tournament project.
 
+DROP DATABASE IF EXISTS tournament;
+
+
 CREATE DATABASE tournament;
 
-\CONNECT tournament;
+\c tournament;
 
-DROP TABLE IF EXISTS Players CASCADE;
 
 CREATE TABLE Players (id serial PRIMARY KEY, playername varchar NOT NULL);
 
-DROP TABLE IF EXISTS Matches;
 
-CREATE TABLE Matches (id serial PRIMARY KEY,
-                      winner int REFERENCES Players (id),
-                      loser int REFERENCES Players (id)
-                    );
+CREATE TABLE Matches (id serial PRIMARY KEY, winner int REFERENCES Players (id), loser int REFERENCES Players (id));
+
 
 CREATE OR REPLACE VIEW standings AS
 SELECT P.id AS id,
